@@ -10,7 +10,7 @@ export class RestaurantsController {
 
   create = async (req: Request, res: Response) => {
     try {
-      // @ts-ignore - Obtemos o ID do dono através do Token JWT
+      // Tipagem corrigida globalmente, não precisa mais de @ts-ignore
       const ownerId = req.user.id;
       
       const restaurant = await this.restaurantsService.create({

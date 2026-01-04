@@ -7,12 +7,12 @@ const ordersController = new OrdersController();
 
 ordersRouter.use(authMiddleware);
 
-// Rotas do Cliente
-ordersRouter.post('/', ordersController.create);
-ordersRouter.get('/my-orders', ordersController.index);
+// Cliente: Criar Pedido e Ver Meus Pedidos
+ordersRouter.post('/', (req, res) => ordersController.create(req, res));
+ordersRouter.get('/my-orders', (req, res) => ordersController.getCustomerOrders(req, res));
 
-// Rotas do Restaurante (Painel do Dono)
-ordersRouter.get('/restaurant-panel', ordersController.listForRestaurant);
-ordersRouter.patch('/:orderId/status', ordersController.updateStatus);
+// Restaurante: Painel de Controle e Atualização de Status
+ordersRouter.get('/restaurant-panel', (req, res) => ordersController.getRestaurantOrders(req, res));
+ordersRouter.patch('/:orderId/status', (req, res) => ordersController.updateStatus(req, res));
 
 export { ordersRouter };
