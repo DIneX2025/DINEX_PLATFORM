@@ -1,10 +1,7 @@
 import { Request, Response } from 'express';
 import Stripe from 'stripe';
+import { stripe } from '../../config/stripe'; // Usando a config centralizada
 import { OrdersService } from './orders.service';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2025-12-18' as any,
-});
 
 const ordersService = new OrdersService();
 
@@ -15,18 +12,31 @@ export async function handleStripeWebhook(req: Request, res: Response) {
   let event: Stripe.Event;
 
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig as string, endpointSecret as string);
+    // Construção do evento usando a instância global e o secret do .env
+    event = stripe.webhooks.constructEvent(
+      req.body, 
+      sig as string, 
+      endpointSecret as string
+    );
   } catch (err: any) {
+    console.error(`⚠️ Erro no Webhook: ${err.message}`);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
+  // Lógica de sucesso no pagamento
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object as Stripe.Checkout.Session;
     const orderId = session.metadata?.orderId;
 
     if (orderId) {
-      await ordersService.updateStatus(orderId, 'PAID');
-      console.log(`✅ Pedido ${orderId} marcado como PAGO.`);
+      // CORREÇÃO CRÍTICA: Atualizamos o paymentStatus e não o status do pedido
+      // conforme definido no seu schema.prisma
+      await ordersService.updatePaymentStatus(orderId, 'PAID');
+      
+      // Opcional: Mover o status do pedido para PREPARING após o pagamento
+      await ordersService.updateStatus(orderId, 'PREPARING');
+      
+      console.log(`✅ Pedido ${orderId} processado e marcado como PAGO.`);
     }
   }
 
