@@ -1,0 +1,21 @@
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiNGVhYmI1LTEwOTgtNGUyYi1hZDk4LTc3YTA4Mzc2ZmQxMiIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc2NzQ3MDQ1MSwiZXhwIjoxNzY3NTU2ODUxfQ.mWg2IkBtBpcXe6-VAJyhD3uXnJ5ZvhXK3FF-FIZhe3U
+@restaurantId = c6048537-e504-4a7c-a138-af22cd1892d8
+@categoryId = 05b48139-cd35-44b7-92ac-d8c2c0b7d776
+
+### Criar Produto: Pizza Margherita
+POST http://localhost:3000/products
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "Pizza Margherita",
+  "description": "Molho de tomate italiano, mozzarella de búfala e manjericão fresco.",
+  "price": 14.50,
+  "restaurantId": "{{restaurantId}}",
+  "categoryId": "{{categoryId}}"
+}
+
+### ---------------------------------------------------------
+
+### Listar todos os produtos do Restaurante
+GET http://localhost:3000/products/restaurant/{{restaurantId}}

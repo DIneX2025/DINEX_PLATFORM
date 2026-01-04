@@ -1,0 +1,8 @@
+### Login do Administrador DineX
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "teste2026@dinex.be",
+  "password": "dinex2026"
+}

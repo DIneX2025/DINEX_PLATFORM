@@ -1,0 +1,23 @@
+### Cole o Token gerado no login (auth.http) abaixo
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiNGVhYmI1LTEwOTgtNGUyYi1hZDk4LTc3YTA4Mzc2ZmQxMiIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc2NzQ3MDQ1MSwiZXhwIjoxNzY3NTU2ODUxfQ.mWg2IkBtBpcXe6-VAJyhD3uXnJ5ZvhXK3FF-FIZhe3U
+
+### Listar todos os restaurantes
+GET http://localhost:3000/restaurants
+
+### ---------------------------------------------------------
+
+### Criar um novo Restaurante
+POST http://localhost:3000/restaurants
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "DineX Gourmet Brussels",
+  "description": "O melhor da culinária belga contemporânea.",
+  "vatNumber": "BE0123456789",
+  "address": "Rue de la Loi 175",
+  "city": "Brussels",
+  "zipCode": "1000",
+  "latitude": 50.8436,
+  "longitude": 4.3822
+}

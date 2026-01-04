@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # Banco de dados relacional para transações financeiras e conformidade belga
+  db:
+    image: postgres:15-alpine
+    container_name: dinex_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: dinex_admin
+      POSTGRES_PASSWORD: dinex_password_secure # Em produção, usaremos .env
+      POSTGRES_DB: dinex_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - dinex_network
+
+  # Cache em memória para rastreamento em tempo real e performance
+  cache:
+    image: redis:7-alpine
+    container_name: dinex_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - dinex_network
+
+networks:
+  dinex_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:

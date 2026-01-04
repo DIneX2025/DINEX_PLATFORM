@@ -1,0 +1,41 @@
+### Variáveis (Use o Token do DONO do restaurante e o ID do Pedido que você criou)
+@ownerToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiNGVhYmI1LTEwOTgtNGUyYi1hZDk4LTc3YTA4Mzc2ZmQxMiIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc2NzQ4MDkxOCwiZXhwIjoxNzY3NTY3MzE4fQ.k7D8NAv3byfulQ_Gu5e3yekkMO0TEXnSMvLevaoaHJs
+@orderId = a7e2bba5-cf33-48bb-9aeb-509b38e46817
+
+### 1. Ver Pedidos recebidos pelo Restaurante
+GET http://localhost:3000/orders/restaurant-panel
+Authorization: Bearer {{ownerToken}}
+
+### ---------------------------------------------------------
+
+### 2. Aceitar Pedido (Mudar para PREPARING)
+PATCH http://localhost:3000/orders/{{orderId}}/status
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "status": "PREPARING"
+}
+
+### ---------------------------------------------------------
+
+### 3. Despachar Pedido (Mudar para OUT_FOR_DELIVERY)
+PATCH http://localhost:3000/orders/{{orderId}}/status
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "status": "OUT_FOR_DELIVERY"
+}
+
+### ---------------------------------------------------------
+
+### 4. Confirmar Entrega Final (Mudar para DELIVERED)
+# Use este bloco para simular que o entregador chegou ao destino
+PATCH http://localhost:3000/orders/{{orderId}}/status
+Content-Type: application/json
+Authorization: Bearer {{ownerToken}}
+
+{
+  "status": "DELIVERED"
+}

@@ -1,0 +1,25 @@
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiNGVhYmI1LTEwOTgtNGUyYi1hZDk4LTc3YTA4Mzc2ZmQxMiIsInJvbGUiOiJDVVNUT01FUiIsImlhdCI6MTc2NzQ3NTgzMywiZXhwIjoxNzY3NTYyMjMzfQ.yr7-I98Ud8qMa3Gv7690wkw9GODGRN6wyFWwbFOdJAQ
+@restaurantId = c6048537-e504-4a7c-a138-af22cd1892d8
+
+@productId = af0ea16d-f9dd-4a40-a0d6-c79fe9802c8e
+
+### Realizar um Pedido
+POST http://localhost:3000/orders
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "restaurantId": "{{restaurantId}}",
+  "items": [
+    {
+      "productId": "{{productId}}",
+      "quantity": 2
+    }
+  ]
+}
+
+### ---------------------------------------------------------
+
+### Ver Meus Pedidos
+GET http://localhost:3000/orders/my-orders
+Authorization: Bearer {{authToken}}

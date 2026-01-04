@@ -1,0 +1,23 @@
+### Cadastro de um novo Cliente (Customer)
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "João Souza",
+  "email": "teste2026@dinex.be",
+  "password": "dinex2026",
+  "phone": "+32 499 00 00 00",
+  "role": "CUSTOMER"
+}
+
+### Cadastro de um Dono de Restaurante (Owner)
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "Admin DineX",
+  "email": "admin@dinex.be",
+  "password": "password_belgium_2026",
+  "phone": "+32 488 11 22 33",
+  "role": "RESTAURANT_OWNER"
+}
