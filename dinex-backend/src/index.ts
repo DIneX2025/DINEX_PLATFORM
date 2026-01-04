@@ -18,7 +18,10 @@ const app = express();
 // Middlewares de Segurança e Log
 app.use(helmet());
 app.use(cors());
-app.use(morgan('dev'));
+// O Morgan só roda se não estivermos em ambiente de teste (para limpar o terminal)
+if (process.env.NODE_ENV !== 'test') {
+  app.use(morgan('dev'));
+}
 
 // Webhook do Stripe (Deve vir antes do express.json)
 app.post(
@@ -38,7 +41,13 @@ app.use('/products', productsRouter);
 app.use('/categories', categoriesRouter);
 app.use('/orders', ordersRouter);
 
+// Configuração para permitir testes (Sênior Pattern)
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 DineX Server rodando na porta ${PORT}`);
-});
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`🚀 DineX Server rodando na porta ${PORT}`);
+  });
+}
+
+export { app };

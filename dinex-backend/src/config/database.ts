@@ -5,7 +5,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+// Exportamos o pool para podermos fechá-lo nos testes (Sênior Pattern)
+export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 const adapter = new PrismaPg(pool);
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient | undefined };
